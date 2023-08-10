@@ -33,5 +33,5 @@ jobs:
       -
         name: Build and push Docker image
         run: |
-          docker build -t my-app-image
-          docker run -d --name my-app-container my-app-image
+          docker build -t backend
+          docker run -d --name backend-container backend
