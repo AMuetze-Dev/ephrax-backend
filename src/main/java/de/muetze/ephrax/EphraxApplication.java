@@ -8,6 +8,7 @@ public class EphraxApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EphraxApplication.class, args);
+		System.out.println("Test");
 	}
 
 }
