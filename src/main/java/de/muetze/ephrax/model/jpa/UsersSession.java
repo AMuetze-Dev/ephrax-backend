@@ -1,21 +1,24 @@
 package de.muetze.ephrax.model.jpa;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.MapsId;
 
 @Entity
-@Table(name = "users_sessions")
 public class UsersSession {
 
-	@Id
+	@EmbeddedId
+	UsersSessionKey id;
+
 	@ManyToOne
+	@MapsId("userId")
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	@ManyToOne
+	@MapsId("sessionId")
 	@JoinColumn(name = "session_id")
 	private Session session;
 

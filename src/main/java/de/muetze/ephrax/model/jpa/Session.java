@@ -1,11 +1,15 @@
 package de.muetze.ephrax.model.jpa;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,11 +19,19 @@ public class Session {
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	@Column(nullable = false)
 	private String code;
+
 	@ManyToOne
 	@JoinColumn(name = "leader")
 	private User leader;
+
+	@ManyToMany(mappedBy = "usersSessions")
+	public Set<User> users;
+
+	@OneToMany(mappedBy = "session")
+	Set<UsersSession> usersSession;
 
 	public String getCode() {
 		return code;

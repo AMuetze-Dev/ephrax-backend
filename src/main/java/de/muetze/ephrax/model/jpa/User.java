@@ -1,9 +1,14 @@
 package de.muetze.ephrax.model.jpa;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,9 +18,14 @@ public class User {
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	@Column(nullable = false)
 	private String username;
 	private int points;
+
+	@ManyToMany
+	@JoinTable(name = "userId", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "session_id"))
+	public Set<Session> usersSessions;
 
 	public Long getId() {
 		return id;
