@@ -1,4 +1,4 @@
-package de.muetze.ephrax.model.user;
+package de.muetze.ephrax.model.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
