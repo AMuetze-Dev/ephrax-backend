@@ -31,7 +31,7 @@ public class PlayerController extends PlayerTemplateImpl {
 	@GetMapping("/kick={id}")
 	public Response kickPlayer(@PathVariable int id) {
 		try {
-			new JDBCDriverConnection(SCHEME, TABLE).executeDelete(id);
+			new JDBCDriverConnection(TABLE).executeDelete(id);
 			return new Response("Entfernen des Spielers war erfolgreich", true);
 		} catch (final SQLException e) {
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class PlayerController extends PlayerTemplateImpl {
 			updateObjects[1] = new UpdateObject<>("name", playerInfo.get("name"));
 			updateObjects[2] = new UpdateObject<>("is_master",
 					playerInfo.get("gamemaster").equalsIgnoreCase("GameMaster"));
-			new JDBCDriverConnection(SCHEME, TABLE).executeAdd(updateObjects);
+			new JDBCDriverConnection(TABLE).executeAdd(updateObjects);
 			return new Response("Spieler wurde dem Spiel hinzugefügt", true);
 		} catch (final SQLException e) {
 			e.printStackTrace();

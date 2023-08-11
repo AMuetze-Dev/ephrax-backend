@@ -12,7 +12,6 @@ import de.muetze.ephrax.model.UpdateObjectable;
 
 public abstract class ServiceTemplateImpl<T extends UpdateObjectable> implements ServiceTemplate<T> {
 
-	protected static final String SCHEME = "ephrax";
 	protected final String TABLE;
 	protected Function<ResultSet, T> resultSet;
 
@@ -21,10 +20,10 @@ public abstract class ServiceTemplateImpl<T extends UpdateObjectable> implements
 		this.resultSet = setResultSetFunction();
 	}
 
-	public List<T> getAll() {
+	private List<T> executeQuery(String query) {
 		List<T> ts = new ArrayList<>();
 		try {
-			ts = JDBCDriverConnection.executeQuery(String.format("SELECT * FROM %s.\"%s\";", SCHEME, TABLE), resultSet);
+			ts = JDBCDriverConnection.executeQuery(query, resultSet);
 		} catch (final SQLException e) {
 			e.printStackTrace();
 			LoggerService.severe(Arrays.toString(e.getStackTrace()));
@@ -32,17 +31,12 @@ public abstract class ServiceTemplateImpl<T extends UpdateObjectable> implements
 		return ts;
 	}
 
+	public List<T> getAll() {
+		return executeQuery(String.format("SELECT * FROM %s;", TABLE));
+	}
+
 	public List<T> getAllWithCondition(String sqlConditions) {
-		List<T> ts = new ArrayList<>();
-		try {
-			System.out.println(String.format("SELECT * FROM %s.\"%s\" WHERE %s;", SCHEME, TABLE, sqlConditions));
-			ts = JDBCDriverConnection.executeQuery(
-					String.format("SELECT * FROM %s.\"%s\" WHERE %s;", SCHEME, TABLE, sqlConditions), resultSet);
-		} catch (final SQLException e) {
-			e.printStackTrace();
-			LoggerService.severe(Arrays.toString(e.getStackTrace()));
-		}
-		return ts;
+		return executeQuery(String.format("SELECT * FROM %s WHERE %s;", TABLE, sqlConditions));
 	}
 
 	protected abstract String getTable();

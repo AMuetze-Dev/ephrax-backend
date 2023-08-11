@@ -15,7 +15,7 @@ import de.muetze.ephrax.model.UpdateObject;
 
 public class JDBCDriverConnection {
 
-	private static final String DB_FILEPATH = "//localhost:5432/ephrax_db?user=root&password=root";
+	private static final String DB_FILEPATH = "//localhost:5432/ephrax?user=root&password=root";
 
 	public static <T> List<T> executeQuery(String query, Function<ResultSet, T> rowMapper) throws SQLException {
 		final List<T> results = new ArrayList<>();
@@ -42,17 +42,15 @@ public class JDBCDriverConnection {
 		return connection;
 	}
 
-	private final String destScheme;
 	private final String destTable;
 
-	public JDBCDriverConnection(String destScheme, String destTable) {
-		this.destScheme = destScheme;
+	public JDBCDriverConnection(String destTable) {
 		this.destTable = destTable;
 	}
 
 	public synchronized <T> void executeAdd(UpdateObject<?>... updateObjects) throws SQLException {
 		String prep = "";
-		String query = String.format("INSERT INTO %s.\"%s\"(", destScheme, destTable);
+		String query = String.format("INSERT INTO %s (", destTable);
 		for (int i = 0; i < updateObjects.length; i++) {
 			query += updateObjects[i].getColumn();
 			prep += "?";
@@ -82,7 +80,7 @@ public class JDBCDriverConnection {
 	}
 
 	public void executeDelete(int id) throws SQLException {
-		final String query = String.format("DELETE FROM %s.\"%s\" WHERE id = %d", destScheme, destTable, id);
+		final String query = String.format("DELETE FROM %s WHERE id = %d", destTable, id);
 		final Connection con = getConnection();
 		final PreparedStatement statement = con.prepareStatement(query);
 		statement.executeUpdate();
@@ -90,8 +88,8 @@ public class JDBCDriverConnection {
 	}
 
 	public void executeUpdate(UpdateObject<?> updateObject) throws SQLException {
-		final String query = String.format("UPDATE %s.\"%s\" SET %s = ? WHERE id = %d", destScheme, destTable,
-				updateObject.getColumn(), updateObject.getID());
+		final String query = String.format("UPDATE %s SET %s = ? WHERE id = %d", destTable, updateObject.getColumn(),
+				updateObject.getID());
 		final Connection con = getConnection();
 		final PreparedStatement statement = con.prepareStatement(query);
 		if (updateObject.isType(String.class))

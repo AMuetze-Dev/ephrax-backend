@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 import de.muetze.ephrax.controller.LoggerService;
-import de.muetze.ephrax.model.GameSession;
+import de.muetze.ephrax.model.Session;
 
-public class GamesessionTemplateImpl extends ServiceTemplateImpl<GameSession> {
+public class SessionTemplateImpl extends ServiceTemplateImpl<Session> {
 
 	@Override
 	protected String getTable() {
@@ -16,9 +16,9 @@ public class GamesessionTemplateImpl extends ServiceTemplateImpl<GameSession> {
 	}
 
 	@Override
-	protected Function<ResultSet, GameSession> setResultSetFunction() {
+	protected Function<ResultSet, Session> setResultSetFunction() {
 		return r -> {
-			final GameSession session = new GameSession();
+			final Session session = new Session();
 			try {
 				session.setGameCode(r.getString("code"));
 				session.setGameID(r.getInt("active_game"));
