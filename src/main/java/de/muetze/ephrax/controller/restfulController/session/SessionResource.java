@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.muetze.ephrax.controller.restfulController.user.UserResource;
+import de.muetze.ephrax.controller.restfulController.user.UserRepository;
 import de.muetze.ephrax.model.jpa.Session;
 
 @RestController
@@ -22,9 +22,12 @@ public class SessionResource {
 	@Autowired
 	private SessionRepository sessionRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	@PostMapping
 	public Session create(@RequestBody Session session) {
-		session.setLeader(new UserResource().get(session.getLeader().getId()));
+		session.setLeader(userRepository.findById(session.getLeader().getId()).orElse(null));
 		return sessionRepository.save(session);
 	}
 
