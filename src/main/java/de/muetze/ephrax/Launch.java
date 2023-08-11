@@ -9,7 +9,7 @@ import de.muetze.ephrax.controller.DatabaseController;
 import de.muetze.ephrax.cors.CorsConfig;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "de.amit.ephrax.backend.controller")
+@ComponentScan(basePackages = "de.muetze.ephrax.controller")
 @Import(CorsConfig.class)
 public class Launch {
 
