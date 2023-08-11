@@ -25,7 +25,7 @@ public class Session {
 		return code;
 	}
 
-	public Long getID() {
+	public Long getId() {
 		return id;
 	}
 
@@ -37,7 +37,7 @@ public class Session {
 		this.code = code;
 	}
 
-	public void setID(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
