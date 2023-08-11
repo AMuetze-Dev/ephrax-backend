@@ -2,6 +2,8 @@ package de.muetze.ephrax.model;
 
 import java.util.Arrays;
 
+import de.muetze.ephrax.model.user.User;
+
 public class Session {
 
 	private int id;
