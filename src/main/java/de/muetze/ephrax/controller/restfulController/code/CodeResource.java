@@ -28,6 +28,6 @@ public class CodeResource {
 
 	@GetMapping("/proof/{code}")
 	public boolean proof(@PathVariable String code) {
-		return sessionRepository.findByCode(code) == null;
+		return sessionRepository.findByCode(code) != null;
 	}
 }
