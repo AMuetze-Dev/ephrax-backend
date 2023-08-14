@@ -19,6 +19,9 @@ class LoginQuestion {
 	private String username;
 	private String password;
 
+	LoginQuestion() {
+	}
+
 	LoginQuestion(String username, String password) {
 		this.username = username;
 		this.password = password;
@@ -44,7 +47,10 @@ class LoginQuestion {
 
 class LoginResponse {
 
-	private final String answer;
+	private String answer;
+
+	LoginResponse() {
+	}
 
 	LoginResponse(String answer) {
 		this.answer = answer;
@@ -52,5 +58,9 @@ class LoginResponse {
 
 	String getAnswer() {
 		return answer;
+	}
+
+	void setAnswer(String answer) {
+		this.answer = answer;
 	}
 }
