@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.muetze.ephrax.model.test.LoginQuestion;
+
 @RestController
 public class LoginController {
 
@@ -12,37 +14,6 @@ public class LoginController {
 
 		return new LoginResponse("test123");
 	}
-}
-
-class LoginQuestion {
-
-	private String username;
-	private String password;
-
-	LoginQuestion() {
-	}
-
-	LoginQuestion(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-
-	String getPassword() {
-		return password;
-	}
-
-	String getUsername() {
-		return username;
-	}
-
-	void setPassword(String password) {
-		this.password = password;
-	}
-
-	void setUsername(String username) {
-		this.username = username;
-	}
-
 }
 
 class LoginResponse {
