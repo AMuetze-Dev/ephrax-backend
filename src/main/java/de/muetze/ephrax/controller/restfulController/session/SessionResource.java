@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.muetze.ephrax.controller.restfulController.user.UserRepository;
+import de.muetze.ephrax.model.Response;
 import de.muetze.ephrax.model.jpa.Session;
 
 @RestController
@@ -25,10 +26,11 @@ public class SessionResource {
 	@Autowired
 	private UserRepository userRepository;
 
-	@PostMapping
-	public Session create(@RequestBody Session session) {
-		session.setLeader(userRepository.findById(session.getLeader().getId()).orElse(null));
-		return sessionRepository.save(session);
+	@PostMapping("/create/{code}")
+	public Response create(@RequestBody long leaderID, @PathVariable String code) {
+		final Session session = new Session(userRepository.findById(leaderID).orElse(null), code);
+		final boolean created = sessionRepository.save(session) != null;
+		return created ? new Response("created room successfully", true) : new Response("failed to create room", false);
 	}
 
 	@DeleteMapping("/{id}")

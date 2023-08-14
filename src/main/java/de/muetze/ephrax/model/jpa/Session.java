@@ -7,9 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,11 +27,17 @@ public class Session {
 	@JoinColumn(name = "leader")
 	private User leader;
 
-	@ManyToMany(mappedBy = "usersSessions")
+	@ManyToMany
+	@JoinTable(name = "users_session", joinColumns = @JoinColumn(name = "session_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	public Set<User> users;
 
-	@OneToMany(mappedBy = "session")
-	Set<UsersSession> usersSession;
+	public Session() {
+	}
+
+	public Session(User leader, String code) {
+		this.code = code;
+		this.leader = leader;
+	}
 
 	public String getCode() {
 		return code;

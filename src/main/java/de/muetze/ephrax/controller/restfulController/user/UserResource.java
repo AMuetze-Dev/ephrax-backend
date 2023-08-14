@@ -22,8 +22,9 @@ public class UserResource {
 	private UserRepository userRepository;
 
 	@PostMapping
-	public User create(@RequestBody User user) {
-		return userRepository.save(user);
+	public Long create(@RequestBody String username) {
+		final User user = new User(username);
+		return userRepository.save(user).getId();
 	}
 
 	@DeleteMapping("/{id}")

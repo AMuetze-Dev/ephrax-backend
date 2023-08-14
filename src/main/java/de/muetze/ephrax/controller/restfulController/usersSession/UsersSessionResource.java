@@ -17,7 +17,7 @@ import de.muetze.ephrax.model.jpa.UsersSession;
 
 @RestController
 @RequestMapping("/userssession")
-public class UsersSessionRessource {
+public class UsersSessionResource {
 
 	@Autowired
 	private UsersSessionRepository usersSessionRepository;

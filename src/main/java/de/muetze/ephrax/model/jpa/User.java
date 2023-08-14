@@ -21,11 +21,20 @@ public class User {
 
 	@Column(nullable = false)
 	private String username;
+
 	private int points;
 
 	@ManyToMany
-	@JoinTable(name = "userId", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "session_id"))
-	public Set<Session> usersSessions;
+	@JoinTable(name = "users_session", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "session_id"))
+	public Set<Session> sessions;
+
+	public User() {
+	}
+
+	public User(String username) {
+		this.username = username;
+		points = 0;
+	}
 
 	public Long getId() {
 		return id;

@@ -6,4 +6,5 @@ import de.muetze.ephrax.model.jpa.Session;
 
 public interface SessionRepository extends JpaRepository<Session, Long> {
 
+	Session findByCode(String code);
 }
