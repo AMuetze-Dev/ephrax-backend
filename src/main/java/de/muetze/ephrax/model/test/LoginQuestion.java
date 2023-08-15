@@ -8,11 +8,6 @@ public class LoginQuestion {
 	public LoginQuestion() {
 	}
 
-	public LoginQuestion(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
-
 	public String getPassword() {
 		return password;
 	}
